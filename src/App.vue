@@ -60,8 +60,6 @@ export default {
         {icon: 'lock_open', title: 'Sign in', link: '/signin'}
       ]
     }
-  },
-  methods: {
   }
 }
 </script>
