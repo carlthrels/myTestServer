@@ -1,5 +1,5 @@
 <template>
-  <v-contauner>
+  <v-container>
     <v-layout row>
       <v-flex xs12>
         <h4 class="primary--text">Create a new Meetup</h4>
@@ -21,5 +21,5 @@
         </form>
       </v-flex>
     </v-layout>
-  </v-contauner>
+  </v-container>
 </template>
