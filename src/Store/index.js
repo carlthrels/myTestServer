@@ -36,8 +36,21 @@ export const store = new Vuex.Store({
       registeredMeetups: ['fghjghfjlkjfglhkd']
     }
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    createMeetup (state, payload) {
+      state.loadedMeetups.push(payload)
+    }
+  },
+  actions: {
+    createMeetup ({commit}, payload) {
+      const meetup = {
+        ...payload,
+        id: 'gfpodgfbpjipji'
+      }
+      // Reach out to firebase and store
+      commit('createMeetup', meetup)
+    }
+  },
   getters: {
     loadedMeetups (state) {
       return state.loadedMeetups.sort((meetupA, meetupB) => {
