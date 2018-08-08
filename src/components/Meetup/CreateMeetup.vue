@@ -59,9 +59,30 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
+              <h4>Choose Date and time</h4>
+            </v-flex>
+          </v-layout>
+          <div>
+            <v-layout row mb-2>
+              <v-flex xs12 sm offset-sm3>
+                <v-date-picker v-model="date"></v-date-picker>
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs12 sm offset-sm3>
+                <v-time-picker
+                  format="24hr"
+                  v-model="time">
+                </v-time-picker>
+              </v-flex>
+            </v-layout>
+          </div>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
               <v-btn class="primary"
                      :disabled="!formIsValid"
                      type="submit">Create Meetup
+                {{ timeSubmit }}
               </v-btn>
             </v-flex>
           </v-layout>
@@ -72,13 +93,18 @@
 </template>
 
 <script>
+  import moment from 'moment'
+  let now = moment().format('YYYY-MM-DD')
+
   export default {
     data () {
       return {
         title: '',
         location: '',
         description: '',
-        imageUrl: ''
+        imageUrl: '',
+        date: now,
+        time: new Date()
       }
     },
     computed: {
@@ -86,7 +112,22 @@
         return this.title !== '' &&
           this.location !== '' &&
           this.description !== '' &&
-          this.imageUrl !== ''
+          this.imageUrl !== '' &&
+          this.date !== '' &&
+          this.time !== ''
+      },
+      timeSubmit () {
+        const date = new Date(this.date)
+        if (typeof this.time === 'string') {
+          const hours = this.time.match(/^(\d+)/)[1]
+          const minutes = this.time.match(/:(\d+)/)[1]
+          date.setHours(hours)
+          date.setMinutes(minutes)
+        } else {
+          date.setHours(this.time.getHours())
+          date.setMinutes(this.time.getMinutes())
+        }
+        return date
       }
     },
     methods: {
@@ -99,7 +140,7 @@
           location: this.location,
           imageUrl: this.imageUrl,
           description: this.description,
-          date: new Date()
+          date: this.timeSubmit
         }
         this.$store.dispatch('createMeetup', meetupData)
         this.$router.push('/meetups')
