@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import { store } from './Store'
+import DateFilter from './Filters/date.js'
+import * as firebase from './firebaseConfig'
+
 import {
   Vuetify,
   VApp,
@@ -41,6 +44,10 @@ Vue.use(Vuetify, {
 })
 
 Vue.config.productionTip = false
+
+Vue.prototype.$firebase = firebase
+
+Vue.filter('date', DateFilter)
 
 /* eslint-disable no-new */
 new Vue({

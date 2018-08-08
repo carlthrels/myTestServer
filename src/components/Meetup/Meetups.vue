@@ -14,8 +14,8 @@
               <v-flex xs7 sm8 md9>
                 <v-card-title primary-title>
                   <div>
-                    <h5 class="white--text" mb-0>{{ meetup.title }}</h5>
-                    <div>{{ meetup.date }}</div>
+                    <h5 class="white--text mb-0">{{ meetup.title }}</h5>
+                    <div>{{ meetup.date | date }}</div>
                   </div>
                 </v-card-title>
                 <v-card-actions>
@@ -39,6 +39,9 @@
       meetups () {
         return this.$store.getters.loadedMeetups
       }
+    },
+    mounted () {
+      debugger
     }
   }
 </script>

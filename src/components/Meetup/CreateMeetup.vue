@@ -66,25 +66,23 @@
             <v-layout row mb-2>
               <v-flex xs12 sm offset-sm3>
                 <v-date-picker v-model="date"></v-date-picker>
-                <p>{{ date }}</p>
               </v-flex>
             </v-layout>
-            <!--<v-layout row>-->
-              <!--<v-flex xs12 sm offset-sm3>-->
-                <!--<v-time-picker-->
-                  <!--format="24hr"-->
-                  <!--v-model="time">-->
-                <!--</v-time-picker>-->
-                <!--<p>{{ time }}</p>-->
-              <!--</v-flex>-->
-            <!--</v-layout>-->
+            <v-layout row>
+              <v-flex xs12 sm offset-sm3>
+                <v-time-picker
+                  format="24hr"
+                  v-model="time">
+                </v-time-picker>
+              </v-flex>
+            </v-layout>
           </div>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-btn class="primary"
                      :disabled="!formIsValid"
                      type="submit">Create Meetup
-                {{ submittableDateTime }}
+                {{ timeSubmit }}
               </v-btn>
             </v-flex>
           </v-layout>
@@ -96,7 +94,7 @@
 
 <script>
   import moment from 'moment'
-  let now = moment().format('YY-MM-DD')
+  let now = moment().format('YYYY-MM-DD')
 
   export default {
     data () {
@@ -118,7 +116,7 @@
           this.date !== '' &&
           this.time !== ''
       },
-      submittableDateTime () {
+      timeSubmit () {
         const date = new Date(this.date)
         if (typeof this.time === 'string') {
           const hours = this.time.match(/^(\d+)/)[1]
@@ -142,7 +140,7 @@
           location: this.location,
           imageUrl: this.imageUrl,
           description: this.description,
-          date: this.submittableDateTime
+          date: this.timeSubmit
         }
         this.$store.dispatch('createMeetup', meetupData)
         this.$router.push('/meetups')
