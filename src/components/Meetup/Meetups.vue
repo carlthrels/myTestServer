@@ -41,7 +41,6 @@
       }
     },
     mounted () {
-      debugger
     }
   }
 </script>
