@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
+
     loadedMeetups: [
       {
         imageUrl: 'https://www.maxpixel.net/static/photo/1x/New-York-Lights-Nyc-City-Manhattan-Skyscraper-Usa-3004388.jpg',
@@ -94,10 +95,28 @@ export const store = new Vuex.Store({
         ...payload,
         date: payload.date.toISOString()
       }
+      let imageUrl
+      let key
       firebase.database().ref('meetups').push(meetup)
         .then((data) => {
           const key = data.key
-          console.log(data)
+          commit('createMeetup', {
+            ...meetup,
+            imageUrl: imageUrl,
+            id: key
+          })
+          return key
+        })
+        .then(key => {
+          const filename = payload.image.name
+          const ext = filename.slice(filename.lastIndexOf('.'))
+          return firebase.storage().ref('meetups/' + key + '.' + ext)
+        })
+        .then(fileData => {
+          imageUrl = fileData.metadata.getDownloadURL[0]
+          return firebase.database().ref('meetups').child(key).update({imageUrl: imageUrl})
+        })
+        .then(() => {
           commit('createMeetup', {
             ...meetup,
             id: key
