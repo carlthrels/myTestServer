@@ -3,7 +3,8 @@ import App from './App'
 import router from './router'
 import { store } from './Store'
 import DateFilter from './Filters/date.js'
-import * as firebase from './firebaseConfig'
+import firebaseConfig from '@/firebaseConfig'
+import * as firebase from 'firebase'
 import AlertCmp from './components/Shared/alert.vue'
 
 import {
@@ -60,5 +61,9 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  created () {
+    firebase.initializeApp(firebaseConfig)
+    this.$store.dispatch('loadMeetups')
+  }
 })
