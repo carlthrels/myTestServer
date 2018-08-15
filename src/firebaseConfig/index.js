@@ -3,7 +3,7 @@ let index = {
   authDomain: 'my-test-project-dd709.firebaseapp.com',
   databaseURL: 'https://my-test-project-dd709.firebaseio.com',
   projectId: 'my-test-project-dd709',
-  storageBucket: 'my-test-project-dd709.appspot.com',
+  storageBucket: 'gs://my-test-project-dd709.appspot.com',
   messagingSenderId: '488745043628'
 }
 
