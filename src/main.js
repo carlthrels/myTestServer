@@ -6,6 +6,7 @@ import DateFilter from './Filters/date.js'
 import firebaseConfig from '@/firebaseConfig'
 import * as firebase from 'firebase'
 import AlertCmp from './components/Shared/alert.vue'
+import EditMeetup from './components/Meetup/Edit/EditMeetup'
 
 import {
   Vuetify,
@@ -24,7 +25,8 @@ import {
   VDatePicker,
   VTimePicker,
   VAlert,
-  VProgressCircular
+  VProgressCircular,
+  VDialog
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -45,7 +47,8 @@ Vue.use(Vuetify, {
     VDatePicker,
     VTimePicker,
     VAlert,
-    VProgressCircular
+    VProgressCircular,
+    VDialog
   }
 })
 
@@ -55,6 +58,7 @@ Vue.prototype.$firebase = firebase
 
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
+Vue.component('app-edit-meetup', EditMeetup)
 
 /* eslint-disable no-new */
 new Vue({

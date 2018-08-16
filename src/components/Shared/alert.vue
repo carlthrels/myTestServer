@@ -1,6 +1,6 @@
 <template>
   <v-alert error dismissible @input="onClose" :value="true">
-    {{ text }}}
+    {{ text }}
   </v-alert>
 </template>
 
